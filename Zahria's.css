@@ -1022,15 +1022,6 @@ nav ul li .dropdown-content {
             }
 }
 
-    .hero h1 {
-        font-size: 1.8rem;
-    }
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2.5rem;
-    }
-
     nav ul {
         gap: 1rem;
         flex-wrap: wrap;
