@@ -423,7 +423,8 @@ function renderCartPage() {
 
 document.getElementById('cart-link').addEventListener('click', function (e) {
     e.preventDefault();
-    showSection('cart');
+    renderCartPage();         // <-- This must be called here!
+    showSection('cart-page'); // Make sure this matches your section ID
 });
 
 document.getElementById('checkout-btn').addEventListener('click', function () {
@@ -434,6 +435,7 @@ function loadCart() {
     const data = localStorage.getItem('cart');
     cart = data ? JSON.parse(data) : [];
 }
+loadCart();
 function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
