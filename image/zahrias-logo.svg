@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="50" viewBox="0 0 150 50">
+    <defs>
+        <style>
+      .logo-text {
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        fill: #1a365d;
+      }
+      .logo-accent {
+        fill: #a67c52;
+      }
+        </style>
+    </defs>
+
+    <text class="logo-text" x="0" y="20" font-size="18">ZA</text>
+    <text class="logo-text" x="0" y="40" font-size="18">AHRIAS</text>
+    <text class="logo-text logo-accent" x="80" y="40" font-size="18">APPAREL</text>
+</svg>
