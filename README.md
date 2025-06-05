@@ -1,2 +1,2 @@
 # my-website
-[Visit the site](index.html)
+[Visit the website](index.html)
