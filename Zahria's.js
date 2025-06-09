@@ -128,6 +128,11 @@ const products = [
     }
 ];
 let cart = [];
+function loadCart() {
+    const data = localStorage.getItem('cart');
+    cart = data ? JSON.parse(data) : [];
+}
+loadCart();
 let wishlist = [];
 let currentProduct = null;
 window.changeCartQty = changeCartQty;
@@ -141,20 +146,22 @@ function saveWishlist() {
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
 }
 loadWishlist();
-// SPA Section Display Logic
+// SPA Section Display Logicfunction showSection(sectionId) {
 function showSection(sectionId) {
     const sections = [
         "hero", "history", "size-guide", "faqs", "products",
         "newsletter-section", "cart-modal", "product-detail-modal", "cart-page",
         "shipping-returns", "privacy-policy", "terms-of-use"
     ];
+     sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+    })
     if (sectionId === 'home') {
         sections.forEach(id => {
             let el = document.getElementById(id) || document.querySelector('.' + id) || document.querySelector('#' + id + '-section');
             if (el) el.style.display = (id === "hero") ? "" : "none";
         });
-        if (sectionId === 'products') sortProducts(document.getElementById("sort").value);
-        if (sectionId === 'cart') renderCartPage();
         document.querySelector('footer').style.display = '';
         return;
     }
@@ -166,7 +173,7 @@ function showSection(sectionId) {
         document.getElementById('products').style.display = '';
     } else if (sectionId === 'cart-modal') {
         document.getElementById('cart-modal').style.display = 'flex';
-    } else if (sectionId === 'cart') {
+    } else if (sectionId === 'cart-page') {
         document.getElementById('cart-page').style.display = '';
         renderCartPage();
     } else if (sectionId === 'product-detail-modal') {
@@ -177,7 +184,7 @@ function showSection(sectionId) {
     }
     document.querySelector('footer').style.display = '';
 }
-
+    
 // ...other code unchanged...
 function renderProducts(list) {
     const grid = document.getElementById('product-grid');
@@ -253,6 +260,10 @@ document.getElementById('payment-method').addEventListener('change', function ()
 document.addEventListener('DOMContentLoaded', function () {
     const paymentMethod = document.getElementById('payment-method');
     if (paymentMethod) {
+        paymentMethod.addEventListener('change', function () {
+            const mpesaDetails = document.getElementById('mpesa-details');
+            mpesaDetails.style.display = this.value === 'mpesa' ? 'block' : 'none';
+        });
         paymentMethod.dispatchEvent(new Event('change'));
     }
 });
@@ -287,7 +298,7 @@ document.getElementById('sort').addEventListener('change', function () {
 });
 
 // Navigation and SPA
-document.querySelectorAll('nav a').forEach(anchor => {
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
         if (href && href.startsWith('#')) {
@@ -385,7 +396,7 @@ function renderProductDetail(product) {
     modal.querySelector('#buy-now-btn').onclick = function () {
         if (!product.inStock) return;
         addToCart(product.id, null);
-        showSection('cart');
+        showSection('cart-page');
     };
     modal.querySelector('#review-form').onsubmit = function (e) {
         e.preventDefault();
@@ -431,11 +442,6 @@ document.getElementById('checkout-btn').addEventListener('click', function () {
     const method = document.getElementById('payment-method').value;
     alert("Checkout with " + method + ". (This is a demo.)");
 });
-function loadCart() {
-    const data = localStorage.getItem('cart');
-    cart = data ? JSON.parse(data) : [];
-}
-loadCart();
 function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
@@ -506,5 +512,5 @@ document.addEventListener('DOMContentLoaded', function () {
     showSection('home');
     updateCartCount();
 });
-
 sortProducts('newest');
+showSection('home');
