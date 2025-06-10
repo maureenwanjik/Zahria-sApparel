@@ -374,6 +374,9 @@ function renderProductDetail(product) {
         </div>
     `;
     modal.querySelector('.close-detail').onclick = () => { showSection('products'); };
+    document.getElementById('product-detail-modal').onclick = function (e) {
+        if (e.target === this) showSection('products');
+    };
     modal.querySelector('#wishlist-btn').onclick = function () {
         if (!wishlist.includes(product.id)) {
             wishlist.push(product.id);
