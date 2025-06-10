@@ -174,7 +174,7 @@ function showSection(sectionId) {
     } else if (sectionId === 'cart-modal') {
         document.getElementById('cart-modal').style.display = 'flex';
     } else if (sectionId === 'cart-page') {
-        document.getElementById('cart-page').style.display = '';
+        document.getElementById('cart-page').style.display = 'block';
         renderCartPage();
     } else if (sectionId === 'product-detail-modal') {
         document.getElementById('product-detail-modal').style.display = 'flex';
